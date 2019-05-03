@@ -1,29 +1,36 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Login from './views/Login/Login.vue';
+import Perfil from './views/Perfil/Perfil.vue';
+import Dashboard from './views/Dashboard/Dashboard.vue';
 
 Vue.use(Router);
 
 export default new Router({
-    routes: [{
-            path: '/login',
-            name: 'home',
-            component: Login,
-            meta: {
-                layout: 'login',
-            },
-        },
-        {
-            path: '/about',
-            name: 'about',
-            meta: {
-                layout: 'dashboard',
-            },
-            // route level code-splitting
-            // this generates a separate chunk (about.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
-            component: () =>
-                import ( /* webpackChunkName: "about" */ './views/About.vue')
-        }
-    ]
+  routes: [
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
+      meta: {
+        layout: 'login',
+      },
+    },
+    {
+      path: '/perfil',
+      name: 'perfil',
+      component: Perfil,
+      meta: {
+        layout: 'dashboard',
+      }
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: Dashboard,
+      meta: {
+        layout: 'dashboard',
+      }
+    }
+  ]
 });

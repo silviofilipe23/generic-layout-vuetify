@@ -7,20 +7,33 @@
     </v-toolbar>
     <v-navigation-drawer v-model="drawer" fixed app>
       <v-list>
-        <v-list-tile :key="item.title" avatar>
-          <v-list-tile-avatar>
-            <img :src="item.avatar">
-          </v-list-tile-avatar>
+        <router-link to="/perfil" style="text-decoration: none">
+          <v-list-tile :key="item.title" avatar>
+            <v-list-tile-avatar>
+              <img :src="item.avatar">
+            </v-list-tile-avatar>
 
-          <v-list-tile-content>
-            <v-list-tile-title v-html="item.title"></v-list-tile-title>
-          </v-list-tile-content>
-          <v-list-tile-action>
-            <v-icon :color="item.active ? 'teal' : 'grey'">chat_bubble</v-icon>
-          </v-list-tile-action>
-        </v-list-tile>
+            <v-list-tile-content>
+              <v-list-tile-title v-html="item.title"></v-list-tile-title>
+            </v-list-tile-content>
+            <v-list-tile-action>
+              <v-icon :color="item.active ? 'teal' : 'grey'">chat_bubble</v-icon>
+            </v-list-tile-action>
+          </v-list-tile>
+        </router-link>
 
         <v-divider></v-divider>
+
+        <router-link to="/dashboard" style="text-decoration: none">
+          <v-list-tile>
+            <v-list-tile-action>
+              <v-icon>star</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Dashboard</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </router-link>
 
         <v-list-group
           v-for="item in items"
@@ -75,8 +88,8 @@ export default {
     items: [
       {
         action: "local_activity",
-        title: "Attractions",
-        items: [{ title: "List Item" }]
+        title: "Dashboard",
+        items: []
       },
       {
         action: "restaurant",

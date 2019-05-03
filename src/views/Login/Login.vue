@@ -22,7 +22,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <router-link to="/about">
+              <router-link to="/dashboard" style="text-decoration: none">
                 <v-btn color="secondary">Login</v-btn>
               </router-link>
             </v-card-actions>
