@@ -4,10 +4,26 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Toolbar</v-toolbar-title>
       <v-spacer></v-spacer>
+
+      <v-btn icon>
+        <v-badge overlap color="orange">
+          <template v-slot:badge>
+            <v-icon dark small>notifications</v-icon>
+          </template>
+          <v-icon large color="white">account_box</v-icon>
+        </v-badge>
+      </v-btn>
     </v-toolbar>
     <v-navigation-drawer v-model="drawer" fixed app>
-      <v-list>
-        <router-link to="/perfil" style="text-decoration: none">
+      <v-img
+        class="sidebar-img-user"
+        v-on:click="$router.push('perfil')"
+        :aspect-ratio="16/9"
+        src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"
+      >
+        <v-layout pa-2 column fill-height class="lightbox white--text">
+          <v-spacer></v-spacer>
+          <router-link to="/perfil" style="text-decoration: none;"></router-link>
           <v-list-tile :key="item.title" avatar>
             <v-list-tile-avatar>
               <img :src="item.avatar">
@@ -17,13 +33,14 @@
               <v-list-tile-title v-html="item.title"></v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-icon :color="item.active ? 'teal' : 'grey'">chat_bubble</v-icon>
+              <v-btn flat icon color="white">
+                <v-icon>chevron_right</v-icon>
+              </v-btn>
             </v-list-tile-action>
           </v-list-tile>
-        </router-link>
-
-        <v-divider></v-divider>
-
+        </v-layout>
+      </v-img>
+      <v-list>
         <router-link to="/dashboard" style="text-decoration: none">
           <v-list-tile>
             <v-list-tile-action>
@@ -133,3 +150,7 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+@import "./styles.css";
+</style>
