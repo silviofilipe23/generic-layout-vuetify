@@ -2,10 +2,12 @@
   <v-layout row wrap>
     <v-flex xs12 sm6 md4 lg2 pa-2>
       <v-img
-        :src="`https://picsum.photos/500/300?image=${1 * 5 + 10}`"
-        :lazy-src="`https://picsum.photos/10/6?image=${1 * 5 + 10}`"
+        id="pick-avatar"
+        :src="user.photo"
+        :lazy-src="user.photo"
         aspect-ratio="1"
         class="grey lighten-2"
+        style="cursor: pointer"
       >
         <template v-slot:placeholder>
           <v-layout fill-height align-center justify-center ma-0>
@@ -13,9 +15,11 @@
           </v-layout>
         </template>
       </v-img>
+
+      <avatar-cropper @uploadHandler="uploadHandler" trigger="#pick-avatar"/>
     </v-flex>
     <v-flex xs12 sm6 md4 lg3 pa-2>
-      <v-card class="pa-2">
+      <v-card class="pa-2" style="height: 243px;">
         <v-toolbar flat color="transparent">
           <v-toolbar-title></v-toolbar-title>
           <h1 font-weight-regular>Silvio Filipe Dionizio Junior</h1>
@@ -57,14 +61,20 @@
                 <v-flex xs6>
                   <v-text-field
                     v-model="user.cep"
-                    :rules="nameRules"
+                    :rules="cepRules"
                     :counter="8"
                     label="Cep"
                     required
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs6>
-                  <v-btn round block color="primary" :disabled="!user.cep" @click="getCep">Buscar</v-btn>
+                  <v-btn
+                    round
+                    block
+                    color="primary"
+                    :disabled="!user.cep || user.cep.length < 8"
+                    @click="getCep"
+                  >Buscar</v-btn>
                 </v-flex>
               </v-layout>
               <v-layout>
@@ -79,18 +89,28 @@
               </v-layout>
               <v-layout>
                 <v-flex xs12 lg6>
-                  <v-text-field v-model="user.complemento" label="Complemento" required></v-text-field>
+                  <v-text-field
+                    v-model="user.complemento"
+                    :counter="50"
+                    label="Complemento"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 lg6>
-                  <v-text-field v-model="user.bairro" :counter="50" label="Bairro" required></v-text-field>
+                  <v-text-field v-model="user.bairro" :rules="bairroRules" label="Bairro" required></v-text-field>
                 </v-flex>
               </v-layout>
               <v-layout>
                 <v-flex xs12 lg6>
-                  <v-text-field v-model="user.localidade" label="Cidade" required></v-text-field>
+                  <v-text-field
+                    v-model="user.localidade"
+                    :rules="cidadeRules"
+                    label="Cidade"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 lg6>
-                  <v-text-field v-model="user.uf" :counter="2" label="UF" required></v-text-field>
+                  <v-text-field v-model="user.uf" :counter="2" :rules="ufRules" label="UF" required></v-text-field>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -110,11 +130,14 @@
 <script>
 const axios = require("axios");
 
+import AvatarCropper from "../../components/AvatarCropper/AvatarCropper.vue";
+
 export default {
   data() {
     return {
       user: {
         name: null,
+        photo: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
         email: null,
         phone: null,
         cep: null,
@@ -130,6 +153,11 @@ export default {
         v => !!v || "Nome é obrigatório"
         // v => v.length <= 40 || "O nome deve conter menos de 50 caracteres"
       ],
+      cepRules: [v => !!v || "Cep é obrigatório"],
+      logradouroRules: [v => !!v || "Logradouro é obrigatório"],
+      bairroRules: [v => !!v || "Bairro é obrigatório"],
+      cidadeRules: [v => !!v || "Cidade é obrigatório"],
+      ufRules: [v => !!v || "UF é obrigatório"],
       email: "",
       emailRules: [
         v => !!v || "E-mail é obrigatório",
@@ -137,8 +165,14 @@ export default {
       ]
     };
   },
-  components: {},
+  components: {
+    AvatarCropper
+  },
   methods: {
+    uploadHandler(imageDataUri) {
+      const self = this;
+      self.user.photo = imageDataUri;
+    },
     submit() {},
     getCep() {
       const self = this;
@@ -168,7 +202,7 @@ export default {
     getUser() {
       const self = this;
     },
-    changePhoto(){
+    changePhoto() {
       const self = this;
     }
   }

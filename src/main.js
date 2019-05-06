@@ -42,10 +42,10 @@ Vue.use(VuetifyToast, {
 })
 
 // Add a request interceptor
-axios.interceptors.request.use(function(config) {
+axios.interceptors.request.use(function (config) {
 
     // const baseURL = 'URL_API';
-    const baseURL = 'https://portalapicloudid.stg.vaultid.com.br';
+    const baseURL = '';
 
     if (config.url.includes('http') === false) {
         const newUrlPath = baseURL + config.url;
@@ -56,18 +56,18 @@ axios.interceptors.request.use(function(config) {
         config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
-}, function(error) {
+}, function (error) {
     return Promise.reject(error);
 });
 
 // Add a response interceptor
-axios.interceptors.response.use(function(response) {
+axios.interceptors.response.use(function (response) {
     if (response.status === 401 || response.status === 403) {
         router.push('login');
         location.reload();
     }
     return response;
-}, function(error) {
+}, function (error) {
     if (error.response.status === 401 || error.response.status === 403) {
         router.push('login');
     }

@@ -68,13 +68,17 @@
           </template>
 
           <v-list-tile v-for="subItem in item.items" :key="subItem.title">
-            <v-list-tile-content>
-              <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
-            </v-list-tile-content>
+            <router-link :to="subItem.link" style="text-decoration: none">
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  <v-icon>{{ subItem.action }}</v-icon>
+                  &nbsp;&nbsp;&nbsp;
+                  {{ subItem.title }}
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </router-link>
 
-            <v-list-tile-action>
-              <v-icon>{{ subItem.action }}</v-icon>
-            </v-list-tile-action>
+            <v-list-tile-action></v-list-tile-action>
           </v-list-tile>
         </v-list-group>
       </v-list>
@@ -104,19 +108,10 @@ export default {
     },
     items: [
       {
-        action: "local_activity",
-        title: "Dashboard",
-        items: []
-      },
-      {
-        action: "restaurant",
-        title: "Dining",
+        action: "event",
+        title: "Agenda",
         active: false,
-        items: [
-          { title: "Breakfast & brunch" },
-          { title: "New American" },
-          { title: "Sushi" }
-        ]
+        items: [{ title: "Visualizar", link: "/events", action: "event" }]
       },
       {
         action: "school",
