@@ -1,6 +1,6 @@
-import Vue from 'vue'
-import Vuetify from 'vuetify'
-import 'vuetify/dist/vuetify.min.css'
+import Vue from 'vue';
+import Vuetify from 'vuetify';
+import 'vuetify/dist/vuetify.min.css';
 
 Vue.use(Vuetify, {
   theme: {
@@ -13,4 +13,4 @@ Vue.use(Vuetify, {
     warning: '#FFC107'
   },
   iconfont: 'md',
-})
+});

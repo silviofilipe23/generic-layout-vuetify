@@ -1,4 +1,4 @@
-  <template>
+<template>
   <v-app id="inspire">
     <component :is="layout">
       <transition mode="out-in" name="fade">

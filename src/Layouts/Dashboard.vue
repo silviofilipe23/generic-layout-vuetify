@@ -111,7 +111,10 @@ export default {
         action: "event",
         title: "Agenda",
         active: false,
-        items: [{ title: "Visualizar", link: "/events", action: "event" }]
+        items: [
+          { title: "Visualizar", link: "/events", action: "list" },
+          { title: "Adicionar", link: "/events", action: "playlist_add" }
+        ]
       },
       {
         action: "school",

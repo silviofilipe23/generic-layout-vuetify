@@ -194,17 +194,24 @@ export default {
             self.user.uf = response.data.uf;
           }
         })
-        .catch(function(error) {});
-    },
-    saveUser() {
-      const self = this;
-    },
-    getUser() {
-      const self = this;
-    },
-    changePhoto() {
-      const self = this;
+        .catch(function() {
+          self.$toast.error("Erro na conexão", {
+            dismissable: true,
+            queueable: false,
+            timeout: 5000,
+            icon: "info"
+          });
+        });
     }
+    // saveUser() {
+    //   const self = this;
+    // },
+    // getUser() {
+    //   const self = this;
+    // },
+    // changePhoto() {
+    //   const self = this;
+    // }
   }
 };
 </script>
